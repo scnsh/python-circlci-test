@@ -43,5 +43,4 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
-            pytest --junitxml=test-reports/junit.xml
+            pipenv run pytest --cov=tests/
