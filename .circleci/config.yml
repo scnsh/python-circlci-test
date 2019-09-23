@@ -15,19 +15,25 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
+    # この設定はcheckout先の指定であって、repository内のdirectoryは指定できない
     working_directory: ~/repo
 
     steps:
-      - checkout # checkout source code to working directory
+      - checkout # ソースコードを作業ディレクトリにチェックアウトします
+      # 依存関係の場所へのアクセスを CircleCI に許可
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
-      - restore_cache:  # ensure this step occurs *before* installing dependencies
+      # 依存関係をキャッシュすることで2回目以降の実行を速くする
+      - restore_cache:  # このステップは依存関係をインストールする*前*に実行します
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
+          # Pipenv を使用して依存関係をインストールします
           name: install dependencies
           command: |
             sudo pip install pipenv
             pipenv install
+      # いくつかのファイルまたはディレクトリをキャッシュします。
+      # この例では、仮想環境とインストールされたパッケージがキャッシュされます。
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
@@ -44,3 +50,10 @@ jobs:
           name: run tests
           command: |
             pipenv run pytest --cov=tests/
+      # テストサマリー (https://circleci.com/docs/ja/2.0/collect-test-data/) に表示するテスト結果をアップロードします
+      - store_test_results:
+          path: test-results
+      # アーティファクト (https://circleci.com/docs/ja/2.0/artifacts/) に表示するテストサマリーをアップロードします
+      - store_artifacts:
+          path: test-results
+          destination: tr1
