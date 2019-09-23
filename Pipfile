@@ -6,7 +6,8 @@ name = "pypi"
 [packages]
 pytest = "*"
 pytest-cov = "*"
-helloworld = {editable = true, path = "."}
+helloworld = {editable = true,path = "."}
+codecov = "*"
 
 [dev-packages]
 

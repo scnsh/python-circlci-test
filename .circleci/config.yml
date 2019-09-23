@@ -50,6 +50,8 @@ jobs:
           name: run tests
           command: |
             pipenv run pytest --cov=tests/
+      - run: pipenv run codecov --token=$CODECOV_TOKEN
+
       # テストサマリー (https://circleci.com/docs/ja/2.0/collect-test-data/) に表示するテスト結果をアップロードします
       - store_test_results:
           path: test-results
