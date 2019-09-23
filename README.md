@@ -5,12 +5,17 @@
 
 CircleCIなどのツール達を使ってみる
 
+- pytestでテスト
+- codecov でcoverageを監視
+- slackにbuild結果を通知
+
 ## 参考資料
 - https://qiita.com/abenben/items/b947dff2cc5613538b9a
 - https://circleci.com/docs/ja/2.0/language-python/
 - https://qiita.com/Hanocha/items/8ad74258eb43d0959590
 - https://yoshinorin.net/2016/12/18/change-format-of-circleci-badge/
 - https://qiita.com/nasum/items/aff9bf09d49b136bbf94
+- https://www.vektor-inc.co.jp/post/github-slack-2018/
 
 ## トラブルシューティング
 
